@@ -157,6 +157,17 @@ resource "aws_route_table_association" "database" {
   route_table_id = aws_route_table.database.id
 }
 
+resource "aws_ssm_parameter" "vpc_id" {
+  name        = "/expense/dev/vpc_id"
+  description = "The parameter description"
+  type        = "SecureString"
+  value       = local.vpc_id
+
+  tags = {
+    environment = "${var.project}-dev"
+  }
+}
+
 locals  {
 vpc_id =  aws_vpc.vpc_creation.id
 }
